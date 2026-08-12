@@ -49,6 +49,11 @@ METADATA_PATH = os.path.join(
     "deployment_metadata.json"
 )
 
+INPUT_METADATA_PATH = os.path.join(
+    BASE_DIR,
+    "deployment_input_metadata.json"
+)
+
 PERFORMANCE_PATH = os.path.join(
     BASE_DIR,
     "model_performance.csv"
@@ -86,6 +91,12 @@ def load_supporting_files():
     ) as file:
         deployment_metadata = json.load(file)
 
+    with open(
+        INPUT_METADATA_PATH,
+        "r",
+        encoding="utf-8"
+    ) as file:
+        input_metadata = json.load(file)
     model_performance = pd.read_csv(
         PERFORMANCE_PATH
     )
@@ -104,18 +115,19 @@ def load_supporting_files():
             "VOTING_PRECINCT": "string"
         }
     )
-
+    
     block_location_lookup["BLOCK"] = (
         block_location_lookup["BLOCK"]
         .str.strip()
     )
 
     return (
-        class_labels,
-        deployment_metadata,
-        model_performance,
-        block_location_lookup
-    )
+    class_labels,
+    deployment_metadata,
+    input_metadata,
+    model_performance,
+    block_location_lookup
+)
 
 
 # ---------------------------------------------
@@ -125,11 +137,12 @@ try:
     model, preprocessor = load_model_artifacts()
 
     (
-        class_labels,
-        deployment_metadata,
-        model_performance,
-        block_location_lookup
-    ) = load_supporting_files()
+    class_labels,
+    deployment_metadata,
+    input_metadata,
+    model_performance,
+    block_location_lookup
+) = load_supporting_files()
 
     required_lookup_columns = [
         "BLOCK",
@@ -184,7 +197,7 @@ st.write(
 # Access valid categorical values from metadata
 # ----------------------------------------------------
 
-categorical_values = deployment_metadata["categorical_values"]
+categorical_values = input_metadata["categorical_values"]
 
 def get_category_options(feature_name):
     """
@@ -358,14 +371,16 @@ import math
 # Helper function: assign time period
 # ------------------------------------------------
 def get_time_period(hour):
-    if 5 <= hour < 12:
-        return "Morning"
-    elif 12 <= hour < 17:
-        return "Afternoon"
-    elif 17 <= hour < 21:
-        return "Evening"
-    else:
+    if pd.isna(hour):
+        return "Unknown"
+    elif 0 <= hour < 6:
         return "Night"
+    elif 6 <= hour < 12:
+        return "Morning"
+    elif 12 <= hour < 18:
+        return "Afternoon"
+    else:
+        return "Evening"
 
 
 # ------------------------------------------------
@@ -587,7 +602,7 @@ prediction_dataframe = pd.DataFrame(
 # ------------------------------------------------
 # Align columns with the original training order
 # ------------------------------------------------
-required_feature_order = deployment_metadata["feature_order"]
+required_feature_order = input_metadata["feature_order"]
 
 missing_features = [
     feature
