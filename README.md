@@ -28,6 +28,18 @@ The workflow includes:
 
 ---
 
+## Data Source
+
+The dataset used in this project is **Crime Incidents in 2025**, published by the District of Columbia Metropolitan Police Department (MPD) through Open Data DC.
+
+- **Dataset:** Crime Incidents in 2025
+- **Publisher:** District of Columbia Metropolitan Police Department (MPD)
+- **Source:** https://opendata.dc.gov/datasets/DCGIS::crime-incidents-in-2025
+- **Accessed:** 15 August 2026
+- **Licence:** Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+The dataset contains a subset of locations and attributes of crime incidents reported through the Metropolitan Police Department's crime reporting database.
+
 ## Prediction Target
 
 The model predicts one of the following eight offence categories:
@@ -178,7 +190,7 @@ The Streamlit application allows a user to:
 - Enter report date and time
 - Generate location details automatically
 - Produce an offence prediction
-- View the model confidence
+- View the model probability (uncalibrated)
 - View the top three class probabilities
 - Expand the complete probability table when required
 

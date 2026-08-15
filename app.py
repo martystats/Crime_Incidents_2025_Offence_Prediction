@@ -7,7 +7,7 @@ import json
 import joblib
 import pandas as pd
 import streamlit as st
-from datetime import date, time
+from datetime import date, time, datetime
 
 
 # ------------------------------------------------
@@ -193,6 +193,12 @@ st.write(
     "to predict the likely offence category of a crime incident."
 )
 
+st.warning(
+    "Educational Use Only: This application is a demonstration project "
+    "and is not intended for operational, policing, investigative, "
+    "legal, or real-world decision-making."
+)
+
 # ----------------------------------------------------
 # Access valid categorical values from metadata
 # ----------------------------------------------------
@@ -359,6 +365,15 @@ with date_column_2:
         help="Select the time at which the incident was reported."
     )
 
+# Validate incident and report date/time
+incident_start_datetime = datetime.combine(start_date, start_time)
+report_datetime = datetime.combine(report_date, report_time)
+
+if report_datetime < incident_start_datetime:
+    st.error(
+        "Report date/time cannot be earlier than the incident start date/time."
+    )
+    st.stop()
 
 # ================================================================
 # Step 57: Construct the Complete Prediction Input Record
@@ -483,11 +498,11 @@ start_season = get_season(start_month)
 # ------------------------------------------------
 # Generate spatial features
 # ------------------------------------------------
-latitude_distance_from_centre = (
+latitude_distance_from_centre = abs(
     latitude - dataset_centre_latitude
 )
 
-longitude_distance_from_centre = (
+longitude_distance_from_centre = abs(
     longitude - dataset_centre_longitude
 )
 
@@ -728,9 +743,9 @@ if predict_button:
                 }
             )
 
-            probability_table["Confidence (%)"] = (
-                probability_table["Probability"] * 100
-            ).round(2)
+            probability_table["Probability (%)"] = (
+    probability_table["Probability"] * 100
+).round(2)
 
             probability_table = (
                 probability_table
@@ -745,7 +760,7 @@ if predict_button:
                 probability_table.loc[
                     probability_table["Offence Category"]
                     == predicted_offence,
-                    "Confidence (%)"
+                    "Probability (%)"
                 ].iloc[0]
             )
 
@@ -763,7 +778,7 @@ if predict_button:
 
             with summary_column_2:
                 st.metric(
-                    label="Model Confidence",
+                    label="Model Probability (uncalibrated)",
                     value=f"{predicted_confidence:.2f}%"
                 )
 
@@ -773,7 +788,7 @@ if predict_button:
 
             st.dataframe(
                 top_three_probabilities[
-                    ["Offence Category", "Confidence (%)"]
+                    ["Offence Category", "Probability (%)"]
                 ],
                 use_container_width=True,
                 hide_index=True
@@ -782,15 +797,15 @@ if predict_button:
             with st.expander("View all prediction probabilities"):
                 st.dataframe(
                     probability_table[
-                        ["Offence Category", "Confidence (%)"]
+                        ["Offence Category", "Probability (%)"]
                     ],
                     use_container_width=True,
                     hide_index=True
                 )
 
                 st.caption(
-                    "The confidence percentages represent the probabilities "
-                    "assigned by the Logistic Regression model."
+                    "The probability percentages are uncalibrated probabilities "
+"assigned by the Logistic Regression model."
                 )
 
         except Exception as prediction_error:
