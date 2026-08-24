@@ -105,7 +105,7 @@ The final modelling dataset contains:
 
 | Measurement | Result |
 |---|---:|
-| Records | 24,075 |
+| Records | 24,110 |
 | Raw predictor features | 39 |
 | Numerical predictors | 17 |
 | Categorical predictors | 22 |
@@ -178,19 +178,19 @@ This gives additional importance to less frequent offence classes during model t
 
 ## Final Test Performance
 
-The selected model was evaluated once on the untouched test dataset containing **2,408 records**.
+The selected model was evaluated once on the untouched test dataset containing **2,411 records**.
 
 | Metric | Test Score |
 |---|---:|
-| Accuracy | 0.4671 |
-| Balanced Accuracy | 0.4227 |
-| Macro Precision | 0.3622 |
-| Macro Recall | 0.4227 |
-| Macro F1 Score | 0.3793 |
+| Accuracy | 0.518042 |
+| Balanced Accuracy | 0.418279 |
+| Macro Precision | 0.349793 |
+| Macro Recall | 0.418279 |
+| Macro F1 Score | 0.368160 |
 
 The test results were close to, and slightly stronger than, the validation results. This supports reasonable generalisation to unseen test observations.
 
-Balanced Accuracy of approximately **42.27%** is above the eight-class chance level of **12.5%**.
+Balanced Accuracy of approximately **41.83%** is above the eight-class chance level of **12.5%**.
 
 However, performance varies between offence categories because the target classes remain imbalanced.
 
