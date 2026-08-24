@@ -202,10 +202,10 @@ The saved model and preprocessing artifacts were independently reloaded and test
 
 | Validation Measurement | Result |
 |---|---:|
-| Raw test shape | 2,408 × 39 |
-| Processed test shape | 2,408 × 11,712 |
-| Processed feature names | 11,712 |
-| Model coefficient features | 11,712 |
+| Raw test shape | 2,411 × 39 |
+| Processed test shape | 2,411 × 11,741 |
+| Processed feature names | 11,741 |
+| Model coefficient features | 11,741 |
 | Exact prediction match | True |
 | Prediction agreement | 100% |
 | Metric differences | 0.0 |
