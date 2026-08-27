@@ -1,6 +1,6 @@
 # Crime Incidents in 2025 – Offence Prediction
 
-**Project Developer:** Martin Jude
+**Project Developer:** Martin Ude
 **GitHub:** martystats  
 **Project Type:** End-to-End Machine Learning Classification & Streamlit Deployment  
 **Year:** 2026
@@ -151,7 +151,7 @@ The modelling workflow created and used features related to:
 
 The distance-from-centre features are calculated using **absolute values**, maintaining consistency between the training notebook and the deployed Streamlit application.
 
-The fitted preprocessing pipeline transforms the **39 raw predictors into 11,712 processed model features**.
+The fitted preprocessing pipeline transforms the **39 raw predictors into 11,741 processed model features**.
 
 ---
 
@@ -188,7 +188,7 @@ The selected model was evaluated once on the untouched test dataset containing *
 | Macro Recall | 0.418279 |
 | Macro F1 Score | 0.368160 |
 
-The test results were close to, and slightly stronger than, the validation results. This supports reasonable generalisation to unseen test observations.
+The test dataset produced higher overall accuracy but lower balanced accuracy and Macro F1 than the validation dataset, indicating mixed generalisation across the imbalanced offence classes.
 
 Balanced Accuracy of approximately **41.83%** is above the eight-class chance level of **12.5%**.
 
@@ -432,7 +432,7 @@ The saved model, preprocessing pipeline, metadata and deployment application the
 
 **Completed**
 
-This project was developed, tested and documented by **Martin Jamed** as an end-to-end machine-learning classification project.
+This project was developed, tested and documented by **Martin Ude** as an end-to-end machine-learning classification project.
 
 The work covers:
 
