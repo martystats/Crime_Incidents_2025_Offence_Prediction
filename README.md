@@ -5,6 +5,10 @@
 **Project Type:** End-to-End Machine Learning Classification & Streamlit Deployment  
 **Year:** 2026
 
+
+**Live App:** [Launch the Washington DC Crime Incidents 2025 Prediction App](https://washington-dc-crime-2025-prediction.streamlit.app)
+
+
 A multiclass machine-learning project developed to predict the most likely **OFFENSE** category for a crime incident using incident, temporal and location-related information.
 
 The project covers the complete machine-learning workflow, including data preparation, exploratory data analysis, feature engineering, model development, validation, reproducibility testing and deployment through an interactive Streamlit application.
